@@ -1,14 +1,24 @@
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import '../scss/app.scss';
-// import React from 'react';
+import React from 'react';
 import Header from './Header';
 import Categories from './Categories';
 import Sort from './Sort';
-import PizzaBlock from './PizzaBlock';
-import pizzas from '../assets/pizzas.json';
+import PizzaBlock from './PizzaBlock';;
+import api from '../api/api';
 
 function App() {
+  const [pizzas, setPizzas] = React.useState([]);
+
+  React.useEffect(() => {
+    api.getPizzas()
+      .then(pizzas => setPizzas(pizzas))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
+
   return (
     <>
       <div className="wrapper">
