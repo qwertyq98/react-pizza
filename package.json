@@ -12,8 +12,12 @@
     "format": "prettier . --write"
   },
   "dependencies": {
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
+    "react-paginate": "^8.2.0",
+    "react-router-dom": "^6.14.1",
     "sass": "^1.63.6"
   },
   "devDependencies": {

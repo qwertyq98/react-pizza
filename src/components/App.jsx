@@ -1,45 +1,33 @@
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
+import { Route, Routes } from 'react-router-dom';
 import '../scss/app.scss';
-import React from 'react';
 import Header from './Header';
-import Categories from './Categories';
-import Sort from './Sort';
-import PizzaBlock from './PizzaBlock';;
-import api from '../api/api';
+import Home from './Home';
+import Cart from './Cart/Cart';
+import NotFound from './NotFound/NotFound';
+import React from 'react';
+
+export const SearchContext = React.createContext('');
 
 function App() {
-  const [pizzas, setPizzas] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState('');
 
-  React.useEffect(() => {
-    api.getPizzas()
-      .then(pizzas => setPizzas(pizzas))
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [])
+  function handlerSearchChange(value) {
+    setSearchValue(value);
+  }
 
   return (
     <>
       <div className="wrapper">
-        <Header />
-        <div className="content">
-          <div className="container">
-            <div className="content__top">
-              <Categories />
-              <Sort />
-            </div>
-            <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">
-              {pizzas.map((item, index) => (
-                <PizzaBlock
-                  key={index}
-                  {...item}
-                />
-              ))}
-            </div>
+        <SearchContext.Provider value={{searchValue, handlerSearchChange}}>
+          <Header />
+          <div className="content">
+            <Routes>
+              <Route path="" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </div>
-        </div>
+          </SearchContext.Provider>
       </div>
     </>
   );
