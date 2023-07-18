@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux'; 
 import Categories from './Categories';
 import Sort from './Sort';
 import PizzaBlock from './PizzaBlock';
@@ -6,22 +7,28 @@ import api from '../api/api';
 import Sceleton from './Sceleton';
 import Pagination from './Pagination/Pagination';
 import { SearchContext } from './App';
+import { setCategoryId, setPageCount } from '../redux/slices/filterSlice';
 
 function Home() {
+  const { categoryId, sort, pageCount } = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [selectedSort, setSelectedSort] = React.useState({
-    name: 'популярности',
-    sortProperty: 'rating',
-  });
-  const [categoryId, setCategoryId] = React.useState(0);
-  const [currentPage, setCurrentPage] = React.useState(1);
   const {searchValue} = React.useContext(SearchContext);
+
+  function onClickCategory(id) {
+    dispatch(setCategoryId(id));
+  }
+
+  function onChangePage(number) {
+    dispatch(setPageCount(number));
+  }
 
   React.useEffect(() => {
     setIsLoading(true);
     api
-      .getPizzas(categoryId, selectedSort.sortProperty, searchValue, currentPage)
+      .getPizzas(categoryId, sort.sortProperty, searchValue, pageCount)
       .then((pizzas) => {
         setPizzas(pizzas);
       })
@@ -32,7 +39,7 @@ function Home() {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, selectedSort, searchValue, currentPage]);
+  }, [categoryId, sort, searchValue, pageCount]);
 
   const elements = pizzas.map((obj, index) => <PizzaBlock key={index} {...obj} />);
   const scelenons = [...new Array(10)].map((_, index) => <Sceleton key={index} />);
@@ -41,8 +48,8 @@ function Home() {
     <>
       <div className="container">
         <div className="content__top">
-          <Categories categoryId={categoryId} onClickCategory={(id) => setCategoryId(id)} />
-          <Sort selectedSort={selectedSort} onClickSort={(i) => setSelectedSort(i)} />
+          <Categories categoryId={categoryId} onClickCategory={onClickCategory} />
+          <Sort  />
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
@@ -50,7 +57,7 @@ function Home() {
             ? scelenons
             : elements}
         </div>
-        <Pagination onChangePage={(number) => setCurrentPage(number)}/>
+        <Pagination pageCount={pageCount} onChangePage={onChangePage}/>
       </div>
     </>
   );

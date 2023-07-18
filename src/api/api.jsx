@@ -1,23 +1,15 @@
+import axios from "axios";
+
 class Api {
   constructor({ baseUrl, headers }) {
     this.baseUrl = baseUrl;
     this.headers = headers;
   }
   makeResponse(url, params) {
-    return fetch(`${this.baseUrl}/${url}`, {
+    return axios.get(`${this.baseUrl}/${url}`, {
       ...params,
       headers: this.headers,
-    }).then(this._checkResponse);
-  }
-
-  _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-
-    return res.json().then((data) => {
-      return Promise.reject(data.message);
-    });
+    }).then(res => res.data);
   }
 
   getPizzas(categoryId, sortProperty, searchValue, currentPage) {
@@ -38,7 +30,7 @@ class Api {
       {
         metod: 'GET',
       },
-    ).then((result) => result);
+    )
   }
 }
 
