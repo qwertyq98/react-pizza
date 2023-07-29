@@ -18,7 +18,7 @@ function Home() {
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const {searchValue} = React.useContext(SearchContext);
-  const elements = pizzas.map((obj, index) => <PizzaBlock key={index} {...obj} />);
+  const elements = pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const scelenons = [...new Array(10)].map((_, index) => <Sceleton key={index} />);
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
