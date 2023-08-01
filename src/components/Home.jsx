@@ -5,20 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import Categories from './Categories';
 import Sort, { sortList } from './Sort';
 import PizzaBlock from './PizzaBlock';
-import api from '../api/api';
 import Sceleton from './Sceleton';
 import Pagination from './Pagination/Pagination';
 import { SearchContext } from './App';
 import { setCategoryId, setPageCount, setFilters } from '../redux/slices/filterSlice';
+import { fetchPizzas } from '../redux/slices/pizzasSlice';
 
 function Home() {
   const { categoryId, sort, pageCount } = useSelector(state => state.filter);
+  const {items, status} = useSelector(state => state.pizza);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [pizzas, setPizzas] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+ 
   const {searchValue} = React.useContext(SearchContext);
-  const elements = pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const elements = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const scelenons = [...new Array(10)].map((_, index) => <Sceleton key={index} />);
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
@@ -31,19 +31,8 @@ function Home() {
     dispatch(setPageCount(number));
   }
 
-  function getPizzas() {
-    setIsLoading(true);
-    api
-      .getPizzas(categoryId, sort.sortProperty, searchValue, pageCount)
-      .then((pizzas) => {
-        setPizzas(pizzas);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+  async function getPizzas() {
+    dispatch(fetchPizzas({categoryId, sort, searchValue, pageCount}));
   }
 
   React.useEffect(() => {
@@ -86,11 +75,20 @@ function Home() {
           <Sort  />
         </div>
         <h2 className="content__title">Все пиццы</h2>
-        <div className="content__items">
-          {isLoading
-            ? scelenons
-            : elements}
-        </div>
+        {
+          status === 'error' ? 
+          <div className='content__error-info'>
+            <h2>Произошла ошибка<span>😕</span></h2>
+            <p>
+              К сожалению, не удалось получить пиццы. Попробуйте повторить попытку позже.
+            </p>
+          </div> : 
+          <div className="content__items">
+            {status === 'loading'
+              ? scelenons
+              : elements}
+          </div>
+        }
         <Pagination pageCount={pageCount} onChangePage={onChangePage}/>
       </div>
     </>
