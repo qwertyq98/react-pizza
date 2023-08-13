@@ -7,17 +7,15 @@ import Sort, { sortList } from './Sort';
 import PizzaBlock from './PizzaBlock';
 import Sceleton from './Sceleton';
 import Pagination from './Pagination/Pagination';
-import { SearchContext } from './App';
-import { setCategoryId, setPageCount, setFilters } from '../redux/slices/filterSlice';
-import { fetchPizzas } from '../redux/slices/pizzasSlice';
+import { setCategoryId, setPageCount, setFilters, selectFilter } from '../redux/slices/filterSlice';
+import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzasSlice';
 
 function Home() {
-  const { categoryId, sort, pageCount } = useSelector(state => state.filter);
-  const {items, status} = useSelector(state => state.pizza);
+  const { categoryId, sort, pageCount, searchValue } = useSelector(selectFilter);
+  const {items, status} = useSelector(selectPizzaData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
  
-  const {searchValue} = React.useContext(SearchContext);
   const elements = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const scelenons = [...new Array(10)].map((_, index) => <Sceleton key={index} />);
   const isSearch = React.useRef(false);
