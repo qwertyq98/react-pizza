@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../api/api';
 
-export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (params) => {
+export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (params, thunkAPI) => {
   const {categoryId, sort, searchValue, pageCount} = params;
   const items = await api.getPizzas(categoryId, sort.sortProperty, searchValue, pageCount);
+  console.log(thunkAPI)
   return items;
 });
 
