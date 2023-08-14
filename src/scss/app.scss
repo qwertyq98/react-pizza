@@ -11,6 +11,14 @@ body {
   background-color: $background;
 }
 
+.loading {
+  font-size: 60px;
+  color: black;
+  text-align: center;
+  height: 852.4px;
+  padding-top: 300px;
+}
+
 .wrapper {
   width: calc(100vw - 100px);
   height: 100%;
@@ -122,6 +130,41 @@ body {
     .content__title {
       margin: 0;
     }
+  }
+
+  &__img {
+    width: 600px;
+    height: 600px;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  &__full {
+    display: flex;
+    flex-direction: row;
+    width: $container-width;
+    margin: 0 auto;
+    justify-content: space-between;
+    height: 600px;
+  }
+
+  &__description {
+    font-size: 18px;
+    color: #8d8d8d;
+    padding-bottom: 20px;
+    width: 500px;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
   }
 }
 

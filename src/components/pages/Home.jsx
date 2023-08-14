@@ -2,13 +2,13 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import Categories from './Categories';
-import Sort, { sortList } from './Sort';
-import PizzaBlock from './PizzaBlock';
-import Sceleton from './Sceleton';
-import Pagination from './Pagination/Pagination';
-import { setCategoryId, setPageCount, setFilters, selectFilter } from '../redux/slices/filterSlice';
-import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzasSlice';
+import Categories from '../Categories';
+import Sort, { sortList } from '../Sort';
+import PizzaBlock from '../PizzaBlock';
+import Sceleton from '../Sceleton';
+import Pagination from '../Pagination/Pagination';
+import { setCategoryId, setPageCount, setFilters, selectFilter } from '../../redux/slices/filterSlice';
+import { fetchPizzas, selectPizzaData } from '../../redux/slices/pizzasSlice';
 
 function Home() {
   const { categoryId, sort, pageCount, searchValue } = useSelector(selectFilter);

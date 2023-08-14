@@ -10,7 +10,10 @@ class Api {
     return axios.get(`${this.baseUrl}/${url}`, {
       ...params,
       headers: this.headers,
-    }).then(res => res.data);
+    })
+    .then(res => {
+      return res.data
+    });
   }
 
   getPizzas(categoryId, sortProperty, searchValue, currentPage) {
@@ -28,6 +31,15 @@ class Api {
 
     return this.makeResponse(
       `items${makeQueryParams(params)}`,
+      {
+        metod: 'GET',
+      },
+    )
+  }
+
+  getPizza(id) {
+    return this.makeResponse(
+      `items/${String(id)}`,
       {
         metod: 'GET',
       },
