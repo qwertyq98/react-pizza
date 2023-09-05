@@ -6,6 +6,7 @@ Pet-проект - веб приложение для заказа пиццы
 
 - React
 - JS
+- Type Script
 - SASS
 - HTML
 - mockapi (сервер для проекта)

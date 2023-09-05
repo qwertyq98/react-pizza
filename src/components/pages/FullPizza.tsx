@@ -1,10 +1,16 @@
 import React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import api from '../../api/api';
+type PizzaInfo = {
+  imageUrl: string
+  title: string
+  price: string
+  description: string
+}
 
-export const FullPizza = () => {
+export const FullPizza: React.FC = () => {
   const params = useParams();
-  const [pizza, setPizza] = React.useState();
+  const [pizza, setPizza] = React.useState<PizzaInfo>();
   const navigate = useNavigate();
 
   React.useEffect(() => {
