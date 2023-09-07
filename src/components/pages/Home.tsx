@@ -10,22 +10,22 @@ import Pagination from '../Pagination/Pagination';
 import { setCategoryId, setPageCount, setFilters, selectFilter } from '../../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzaData } from '../../redux/slices/pizzasSlice';
 
-function Home() {
+const Home:React.FC = () => {
   const { categoryId, sort, pageCount, searchValue } = useSelector(selectFilter);
   const {items, status} = useSelector(selectPizzaData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
  
-  const elements = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const elements = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
   const scelenons = [...new Array(10)].map((_, index) => <Sceleton key={index} />);
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  function onClickCategory(id) {
+  function onClickCategory(id: number) {
     dispatch(setCategoryId(id));
   }
 
-  function onChangePage(number) {
+  function onChangePage(number: number) {
     dispatch(setPageCount(number));
   }
 

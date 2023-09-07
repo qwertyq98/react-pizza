@@ -14,7 +14,9 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@types/jest": "^29.5.4",
+    "@types/lodash.debounce": "^4.0.7",
     "@types/node": "^20.5.9",
+    "@types/qs": "^6.9.8",
     "axios": "^1.4.0",
     "lodash.debounce": "^4.0.8",
     "prop-types": "^15.8.1",

@@ -1,12 +1,20 @@
 import axios from "axios";
+import { any } from "prop-types";
 
+type ApiProps = {
+  baseUrl: string;
+  headers: any
+}
 
 class Api {
-  constructor({ baseUrl, headers }) {
+  baseUrl: string;
+  headers: any;
+
+  constructor({ baseUrl, headers }: ApiProps) {
     this.baseUrl = baseUrl;
     this.headers = headers;
   }
-  makeResponse(url, params) {
+  makeResponse(url: string, params: any) {
     return axios.get(`${this.baseUrl}/${url}`, {
       ...params,
       headers: this.headers,
@@ -16,13 +24,13 @@ class Api {
     });
   }
 
-  getPizzas(categoryId, sortProperty, searchValue, currentPage) {
+  getPizzas(categoryId: number, sortProperty: string, searchValue: number, currentPage: number) {
     const params = {
       limit: 4,
       page: currentPage,
       sortBy: sortProperty.replace('-', ''),
       order: sortProperty.includes('-') ? 'ask' : 'desc',
-      search: searchValue ? searchValue : ''
+      search: searchValue ? searchValue : '',
     }
 
     if (categoryId > 0) {
@@ -37,7 +45,7 @@ class Api {
     )
   }
 
-  getPizza(id) {
+  getPizza(id: number) {
     return this.makeResponse(
       `items/${String(id)}`,
       {
@@ -54,7 +62,7 @@ const api = new Api({
   },
 });
 
-function makeQueryParams(obj) {
+function makeQueryParams(obj: any) {
   let res ='?';
   for (let key in obj) {
     res += `${key}=${obj[key]}&`;

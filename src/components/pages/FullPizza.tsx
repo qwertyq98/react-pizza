@@ -10,6 +10,7 @@ type PizzaInfo = {
 
 export const FullPizza: React.FC = () => {
   const params = useParams();
+
   const [pizza, setPizza] = React.useState<PizzaInfo>();
   const navigate = useNavigate();
 
