@@ -1,5 +1,4 @@
 import axios from "axios";
-import { any } from "prop-types";
 
 type ApiProps = {
   baseUrl: string;

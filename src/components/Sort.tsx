@@ -23,8 +23,13 @@ function Sort() {
   const sortRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function haldleClickOutside(event: any) {
-      if(!event.composedPath().includes(sortRef.current)) {
+    const haldleClickOutside = (event: MouseEvent) => {
+      // добавляю MouseEvent свойство path
+      const _event = event as MouseEvent & {
+        path: Node[];
+      }
+
+      if(sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpen(false);
       }
     }
