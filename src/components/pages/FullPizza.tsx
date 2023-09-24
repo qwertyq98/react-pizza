@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import api from '../../api/api';
+import axios from 'axios';
+
 type PizzaInfo = {
   imageUrl: string
   title: string
@@ -17,8 +18,8 @@ export const FullPizza: React.FC = () => {
   React.useEffect(() => {
     async function fetchPizza() {
       try {
-        const item = await api.getPizza(params.id);
-        setPizza(item);
+        const item = await axios.get('https://64b03ccac60b8f941af5724f.mockapi.io/items/' + params.id);
+        setPizza(item.data);
       } catch (error) {
         alert('Ошибка при получении пиццы!');
         navigate('/');

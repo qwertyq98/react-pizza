@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSort, setSort } from '../redux/slices/filterSlice';
+import { SortPropertyEnum, SortType, selectSort, setSort } from '../redux/slices/filterSlice';
 
-type SortItemOption = {
+export type SortItemOption = {
   name: string;
   sortProperty: string;
 };
 
 export const sortList: SortItemOption[] = [
-  { name: 'популярности (DESC)', sortProperty: 'rating' },
-  { name: 'популярности (ASK)', sortProperty: '-rating' },
-  { name: 'цене (DESC)', sortProperty: 'price' },
-  { name: 'цене (ASK)', sortProperty: '-price' },
-  { name: 'алфавиту (DESC)', sortProperty: 'title' },
-  { name: 'алфавиту (ASK)', sortProperty: '-title' },
+  { name: 'популярности (DESC)', sortProperty: SortPropertyEnum.RATING_DESC },
+  { name: 'популярности (ASK)', sortProperty: SortPropertyEnum.RATING_ASK },
+  { name: 'цене (DESC)', sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: 'цене (ASK)', sortProperty: SortPropertyEnum.PRICE_ASK },
+  { name: 'алфавиту (DESC)', sortProperty: SortPropertyEnum.TITLE_DESC },
+  { name: 'алфавиту (ASK)', sortProperty: SortPropertyEnum.TITLE_ASK },
 ];
 
 function Sort() {
@@ -41,8 +41,8 @@ function Sort() {
     })
   }, [open])
 
-  function selectCategory(obj:SortItemOption) {
-    dispatch(setSort(obj))
+  function selectCategory(obj:SortType) {
+    dispatch(setSort(obj));
     setOpen(false);
   }
 
