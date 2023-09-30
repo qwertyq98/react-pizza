@@ -23,18 +23,17 @@ class Api {
     });
   }
 
-  getPizzas(categoryId: number, sortProperty: string, searchValue: string, currentPage: number) {
+  getPizzas(categoryId: number, sortProperty: string, searchValue: string, currentPage: number, category?: string) {
     const params = {
       limit: 4,
       page: currentPage,
       sortBy: sortProperty.replace('-', ''),
       order: sortProperty.includes('-') ? 'ask' : 'desc',
       search: searchValue ? searchValue : '',
-      category: 1
     }
 
     if (categoryId > 0) {
-      params.category = categoryId;
+      params.category = String(categoryId);
     }
 
     return this.makeResponse(

@@ -17,6 +17,7 @@
     "@types/lodash.debounce": "^4.0.7",
     "@types/node": "^20.5.9",
     "@types/qs": "^6.9.8",
+    "ahooks": "^3.7.8",
     "axios": "^1.4.0",
     "lodash.debounce": "^4.0.8",
     "prop-types": "^15.8.1",

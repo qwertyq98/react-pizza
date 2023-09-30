@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { SortPropertyEnum, SortType, selectSort, setSort } from '../redux/slices/filterSlice';
 
 export type SortItemOption = {
   name: string;
   sortProperty: string;
+};
+
+type SortProps = {
+  list: SortType;
 };
 
 export const sortList: SortItemOption[] = [
@@ -16,9 +20,8 @@ export const sortList: SortItemOption[] = [
   { name: 'алфавиту (ASK)', sortProperty: SortPropertyEnum.TITLE_ASK },
 ];
 
-function Sort() {
+const Sort: React.FC<SortProps> = React.memo(({list}) => {
   const dispatch = useDispatch();
-  const list = useSelector(selectSort);
   const [open, setOpen] = React.useState(false);
   const sortRef = React.useRef<HTMLDivElement>(null);
 
@@ -29,8 +32,10 @@ function Sort() {
         path: Node[];
       }
 
-      if(sortRef.current && !_event.path.includes(sortRef.current)) {
-        setOpen(false);
+      if(_event.path) {
+        if(sortRef.current && !_event.path.includes(sortRef.current)) {
+          setOpen(false);
+        }
       }
     }
 
@@ -81,6 +86,6 @@ function Sort() {
       )}
     </div>
   );
-}
+})
 
 export default Sort;

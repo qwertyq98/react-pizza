@@ -21,6 +21,12 @@ const initialState: CartSliseState = {
   items: [],
 };
 
+function updateTotalPrice(state: CartSliseState) {
+  state.totalPrice = state.items.reduce((sum, obj) => {
+    return sum + obj.price * obj.count;
+  }, 0);
+}
+
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -35,10 +41,7 @@ export const cartSlice = createSlice({
           count: 1
         })
       }
-
-      state.totalPrice = state.items.reduce((sum, obj) => {
-        return obj.price * obj.count + sum;
-      }, 0);
+      updateTotalPrice(state);
     },
     minusItem(state, action: PayloadAction<string>) {
       const findItem = state.items.find(obj => obj.id === action.payload)
@@ -51,6 +54,7 @@ export const cartSlice = createSlice({
     },
     removeItem(state, action: PayloadAction<string>) {
       state.items = state.items.filter(obj => obj.id !== action.payload);
+      updateTotalPrice(state);
     },
     clearItem(state) {
       state.items = [];
