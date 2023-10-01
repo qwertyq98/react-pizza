@@ -1,5 +1,6 @@
 {
   "name": "react-pizza",
+  "homepage": "https://qwertyq98.github.io/react-pizza",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +10,8 @@
     "start": "vite",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -41,6 +43,7 @@
     "eslint-plugin-react-refresh": "^0.4.1",
     "prettier": "3.0.0",
     "vite": "^4.4.0",
-    "vite-plugin-linter": "^2.0.2"
+    "vite-plugin-linter": "^2.0.2",
+    "gh-pages": "^5.0.0"
   }
 }

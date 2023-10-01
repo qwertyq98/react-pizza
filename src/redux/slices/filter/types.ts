@@ -5,12 +5,12 @@ export enum SortPropertyEnum {
   PRICE_ASK = '-price',
   TITLE_DESC = 'title',
   TITLE_ASK = '-title',
-}
+};
 
 export type SortType = {
   name: string,
   sortProperty: string,
-}
+};
 
 export interface FilterSliceState {
   categoryId: number,
@@ -18,4 +18,4 @@ export interface FilterSliceState {
   pageCount: number,
   sort: SortType,
   sortProperty: string
-}
+};

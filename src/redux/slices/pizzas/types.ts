@@ -6,10 +6,10 @@ export type fetchPizzasArgs = {
   sort: SortType,
   searchValue: string, 
   pageCount: number,
-}
+};
 
 export enum Status {
   LOADING = 'loading',
   SUCCESS = 'success',
   ERROR = 'error',
-}
+};

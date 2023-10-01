@@ -6,9 +6,9 @@ export type CartItemType = {
   type: string,
   size: number,
   count: number,
-}
+};
 
 export interface CartSliseState {
   totalPrice: number,
   items: CartItemType[],
-}
+};
