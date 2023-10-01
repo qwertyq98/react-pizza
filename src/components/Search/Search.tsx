@@ -2,7 +2,7 @@ import styles from './Search.module.scss';
 import React from 'react';
 import debounce from 'lodash.debounce';
 import { useDispatch } from 'react-redux';
-import { setSearchValue } from '../../redux/slices/filterSlice';
+import { setSearchValue } from '../../redux/slices/filter/slice';
 
 const Search = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);

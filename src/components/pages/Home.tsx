@@ -7,9 +7,12 @@ import Sort, { SortItemOption, sortList } from '../Sort';
 import PizzaBlock from '../PizzaBlock';
 import Sceleton from '../Sceleton';
 import Pagination from '../Pagination/Pagination';
-import { setCategoryId, setPageCount, setFilters, selectFilter, FilterSliceState, SortType } from '../../redux/slices/filterSlice';
-import { fetchPizzas, selectPizzaData } from '../../redux/slices/pizzasSlice';
+import { setCategoryId, setPageCount, setFilters } from '../../redux/slices/filter/slice';
+import { fetchPizzas } from '../../redux/slices/pizzas/slice';
 import { useAppDispatch } from '../../redux/store';
+import { selectFilter } from '../../redux/slices/filter/selectors';
+import { FilterSliceState, SortType } from '../../redux/slices/filter/types';
+import { selectPizzaData } from '../../redux/slices/pizzas/selectors';
 
 const Home:React.FC = () => {
   const { categoryId, sort, pageCount, searchValue } = useSelector(selectFilter);

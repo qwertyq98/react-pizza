@@ -1,21 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import api from '../../api/api';
-import { RootState } from '../store';
-import { SortType } from './filterSlice';
-
-type fetchPizzasArgs = {
-  categoryId: number,
-  sortProperty?: string, 
-  sort: SortType,
-  searchValue: string, 
-  pageCount: number,
-}
-
-export enum Status {
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  ERROR = 'error',
-}
+import { fetchPizzasArgs, Status } from './types';
+import api from '../../../api/api';
 
 export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (params: fetchPizzasArgs) => {
   const {categoryId, sort, searchValue, pageCount} = params;
@@ -66,7 +51,6 @@ export const pizzasSlice = createSlice({
   }
 })
 
-export const selectPizzaData = (state: RootState) => state.pizza;
 export const { setItems } = pizzasSlice.actions;
 
 export default pizzasSlice.reducer;
